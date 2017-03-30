@@ -25,5 +25,9 @@ func main() {
 		Handler: n,
 	}
 	log.Println("Listening ...")
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+	if err != nil{
+		log.Fatalf("%s\n", err)
+	}
+	log.Println("stoping ...")
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"time"
 	"net/http"
+	"github.com/dgrijalva/jwt-go/request"
 )
 
 // using asymmetric crypto/RSA keys
@@ -41,15 +42,20 @@ func GenerateJWT(name, role string) (string, error) {
 	// create a signer for rsa 256
 	t := jwt.New(jwt.GetSigningMethod("RS256"))
 
+	claims := make(jwt.MapClaims)
+
 	//set claim for JWT token
-	t.Claims["iss"] = "admin"
-	t.Claims["UserInfo"] = struct {
+	claims["iss"] = "admin"
+	claims["UserInfo"] = struct {
 		Name string
 		Role string
 	}{name, role}
 
 	// set the expire time for JWT token
-	t.Claims["exp"] = time.Now().Add(time.Minute * 20).Unix()
+	claims["exp"] = time.Now().Add(time.Minute * 20).Unix()
+
+	t.Claims = claims
+
 	tokenString, err := t.SignedString(signKey)
 	if err != nil{
 		return "", err
@@ -58,24 +64,36 @@ func GenerateJWT(name, role string) (string, error) {
 }
 
 
-func Authorize(w http.ResponseWriter, r *http.Request) {
+func Authorize(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	// validate the token
-	token, err := jwt.ParseFromRequest(r, func(token *jwt.Token) (interface{}, error) {
-		//Verufy the token with public key, which is the counter part of private key
-		return verifyKey, nil
-	})
+	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor,
+		func(token *jwt.Token) (interface{}, error) {
+			return verifyKey, nil
+		})
 
 	if err != nil{
 		switch err.(type) {
 			case *jwt.ValidationError: // JWT Validation error
+				validationError := err.(*jwt.ValidationError)
 
-
-			return
-
+				switch validationError.Errors {
+					case jwt.ValidationErrorExpired: //JWT expired
+						DisplayAppError(w, err, "Access Token is expired, Get a new one", 401)
+						return
+					default:
+						DisplayAppError(w, err, "Error while parsing Access Token", 500)
+						return
+				}
 		default:
-
+			DisplayAppError(w, err, "Error while parsing Access Token", 500)
 			return
 
 		}
+	}
+	if token.Valid{
+		next(w, r)
+	}else{
+		DisplayAppError(w, err, "Invalid Access Token", 401)
+		return
 	}
 }
