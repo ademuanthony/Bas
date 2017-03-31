@@ -24,7 +24,7 @@ func main() {
 		Addr: common.AppConfig.Server,
 		Handler: n,
 	}
-	log.Println("Listening ...")
+	log.Printf("Listening at %s ... \n", common.AppConfig.Server)
 	err := server.ListenAndServe()
 	if err != nil{
 		log.Fatalf("%s\n", err)

@@ -57,3 +57,13 @@ func DisplayAppError(w http.ResponseWriter, handlerError error, message string, 
 		w.Write(j)
 	}
 }
+
+func SendResult(w http.ResponseWriter, data interface{}, statusCode int) {
+	if j, err := json.Marshal(data); err != nil{
+		DisplayAppError(w, err, "An unexpected error has eccured", 500)
+	}else{
+		w.Header().Set("Content-type", "application/json")
+		w.WriteHeader(statusCode)
+		w.Write(j)
+	}
+}
