@@ -3,31 +3,26 @@ package common
 import (
 	//"github.com/jinzhu/gorm"
 	//_ "github.com/jinzhu/gorm/dialects/mysql"
-	"log"
-	"fmt"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"database/sql"
-	"github.com/astaxie/beedb"
+	"log"
 )
-
-var Db *sql.DB
-var Orm beedb.Model
 
 func createDatabaseConnection() {
 	var err error
-	Db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",
-		AppConfig.DbUserName, AppConfig.DbPassword, AppConfig.Database))
 
+	// set default database
+	/*err = orm.RegisterDataBase("default", "mysql", fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",
+	AppConfig.DbUserName, AppConfig.DbPassword, AppConfig.Database), 30)*/
+	// set default database
+	orm.RegisterDataBase("default", "mysql", "root:0000@/bas?charset=utf8", 30)
 
-	if err != nil{
+	if err != nil {
+		panic(err)
 		log.Fatalf("[CreateDatabaseConnection]: %s\n", err)
 	}
-
-	beedb.OnDebug = true
-
-	Orm = beedb.New(Db)
 }
 
 func closeDatabaseConnection() {
-	Db.Close()
+	//Db.Close()
 }

@@ -17,10 +17,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 
 	"crypto/rsa"
+	"github.com/ademuanthony/Bas/common"
+	"github.com/ademuanthony/Bas/data"
+	"github.com/astaxie/beego/orm"
 	"github.com/codegangsta/negroni"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
@@ -96,6 +98,7 @@ func StartServer() {
 func main() {
 
 	initKeys()
+	common.StartUp()
 	StartServer()
 }
 
@@ -118,19 +121,27 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if strings.ToLower(user.Username) != "someone" {
-		if user.Password != "p@ssword" {
-			w.WriteHeader(http.StatusForbidden)
-			fmt.Println("Error logging in")
-			fmt.Fprint(w, "Invalid credentials")
-			return
-		}
+	repo := data.UserRepository{Orm: orm.NewOrm()}
+	u, err := repo.Login(user.Username, user.Password)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid credential", http.StatusUnauthorized)
+		return
 	}
+	/*
+		if strings.ToLower(user.Username) != "someone" {
+			if user.Password != "p@ssword" {
+				w.WriteHeader(http.StatusForbidden)
+				fmt.Println("Error logging in")
+				fmt.Fprint(w, "Invalid credentials")
+				return
+			}
+		}*/
 
 	token := jwt.New(jwt.SigningMethodRS256)
 	claims := make(jwt.MapClaims)
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
+	claims["user"] = u
 	token.Claims = claims
 
 	if err != nil {

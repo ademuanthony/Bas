@@ -4,10 +4,9 @@ import (
 	"github.com/ademuanthony/Bas/common"
 	"github.com/ademuanthony/Bas/routers"
 	"github.com/codegangsta/negroni"
-	"net/http"
 	"log"
+	"net/http"
 )
-
 
 // Entry point of the program
 func main() {
@@ -21,12 +20,12 @@ func main() {
 	n.UseHandler(router)
 
 	server := &http.Server{
-		Addr: common.AppConfig.Server,
+		Addr:    common.AppConfig.Server,
 		Handler: n,
 	}
 	log.Printf("Listening at %s ... \n", common.AppConfig.Server)
 	err := server.ListenAndServe()
-	if err != nil{
+	if err != nil {
 		log.Fatalf("%s\n", err)
 	}
 	log.Println("stoping ...")

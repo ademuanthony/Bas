@@ -1,57 +1,61 @@
 package controllers
 
 import (
-	"net/http"
 	"encoding/json"
 	"github.com/ademuanthony/Bas/common"
 	"github.com/ademuanthony/Bas/data"
 	"github.com/ademuanthony/Bas/resources"
+	"github.com/astaxie/beego/orm"
+	"net/http"
 )
 
-func AuthRegister(w http.ResponseWriter, r *http.Request)  {
+func AuthRegister(w http.ResponseWriter, r *http.Request) {
+	currentUser := r.Context().Value("user")
+	common.Log("CurrentUser", currentUser)
 	var userResource resources.UserResource
 	err := json.NewDecoder(r.Body).Decode(&userResource)
-	if err != nil{
+	if err != nil {
 		common.DisplayAppError(w, err, "Invalid user data", http.StatusBadRequest)
 		return
 	}
 	user := userResource.Data
-	userRepository := data.UserRepository{}
+	userRepository := data.UserRepository{Orm: orm.NewOrm()}
 	id, err := userRepository.CreateUser(user)
-	if err != nil{
+	if err != nil {
 		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
 		return
 	}
 	user.PasswordHash = ""
 	user.Id = id
-	common.SendResult(w, resources.UserResource{Data:user}, http.StatusCreated)
+	common.SendResult(w, resources.UserResource{Data: user}, http.StatusCreated)
 }
 
-func AuthLogin(w http.ResponseWriter, r *http.Request){
+func AuthLogin(w http.ResponseWriter, r *http.Request) {
 	var dataResource resources.LoginResource
 	var token string
 	// Decode the incoming login json
 	err := json.NewDecoder(r.Body).Decode(&dataResource)
-	if err != nil{
+	if err != nil {
 		common.DisplayAppError(w, err, "Invalid login data", http.StatusBadRequest)
 		return
 	}
 	loginModel := dataResource.Data
 
-	userRepository := data.UserRepository{}
+	userRepository := data.UserRepository{Orm: orm.NewOrm()}
 	// Authenticate the login user
-	if user, err := userRepository.Login(loginModel.Username, loginModel.Password); err != nil{
+	if user, err := userRepository.Login(loginModel.Username, loginModel.Password); err != nil {
 		common.DisplayAppError(w, err, "Invalid credentials", http.StatusUnauthorized)
 		return
-	}else {// if login is successful
+	} else { // if login is successful
 		// Generate json web token
-		token, err = common.GenerateJWT(user.Username, "member")
-		if err != nil{
+		tokenData := common.TokenData{UserId:user.Id, Permissions:[]int64{1,2,3,4,5,6,7,8,9,0,12,32,43,545,665,75,777,1,2,3,4,5,6,7,8,9,0,12,32,43,545,665,75,777,1,2,3,4,5,6,7,8,9,0,12,32,43,545,665,75,777,23}} //todo
+		token, err = common.GenerateJWT(tokenData)
+		if err != nil {
 			common.DisplayAppError(w, err, "Error while generating access token", 500)
 			return
 		}
 		user.PasswordHash = ""
-		athUser := resources.AuthUserModel{User:user, Token:token}
+		athUser := resources.AuthUserModel{User: user, Token: token}
 		common.SendResult(w, athUser, http.StatusOK)
 	}
 }

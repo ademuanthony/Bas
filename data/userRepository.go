@@ -1,40 +1,49 @@
 package data
 
 import (
-	"github.com/ademuanthony/Bas/models"
-	"github.com/ademuanthony/Bas/common"
-	"fmt"
 	"errors"
-	"golang.org/x/crypto/bcrypt"
+	"fmt"
+	"github.com/ademuanthony/Bas/models"
 	"github.com/astaxie/beego/orm"
+	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
 type UserRepository struct {
-	Db orm.Ormer
+	Orm orm.Ormer
 }
 
 func (this UserRepository) CreateUser(user models.User) (int64, error) {
-	var existingUser models.User
-	err := common.Orm.Where("user_name = ?", user.Username).Find(&existingUser)
-	if err == nil{
+	u := models.User{Username: user.Username}
+	err := this.Orm.QueryTable("user").Filter("username__exact", user.Username).One(&u)
+	if err == nil {
 		return 0, fmt.Errorf("The selected %s have been taken", "Username")
 	}
-	err = common.Orm.Where("email = ?", user.Email).Find(&existingUser)
-	if err == nil{
+	u = models.User{Email: user.Email}
+	err = this.Orm.QueryTable("user").Filter("email__exact", user.Email).One(&u)
+	if err == nil {
 		return 0, fmt.Errorf("The selected %s have been taken", "Email")
 	}
-	err = common.Orm.Save(&user)
-	return user.Id, err
+	//generate password hash
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		fmt.Printf("NUM: ERR: %v\n", err)
+	}
+	user.CreatedDate = time.Now()
+	user.UpdatedDate = time.Now()
+	user.PasswordHash = string(hashedPassword)
+	id, err := this.Orm.Insert(&user)
+	return id, err
 }
 
 func (this UserRepository) Login(username, password string) (models.User, error) {
-	var user models.User
-	var err error
-	err = common.Orm.Where("user_name = ?", username).Find(&user)
-	if err != nil{
+	user := models.User{Username: username}
+	err := this.Orm.QueryTable(new(models.User)).Filter("username", username).One(&user)
+
+	if err != nil {
 		return user, errors.New("Invalid credentials")
 	}
-	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil{
+	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil {
 		return user, errors.New("Invalid credentials")
 	}
 	return user, nil

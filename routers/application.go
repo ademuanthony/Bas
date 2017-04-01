@@ -1,11 +1,11 @@
 package routers
 
 import (
-	"github.com/gorilla/mux"
+	"fmt"
+	"github.com/ademuanthony/Bas/common"
 	"github.com/ademuanthony/Bas/controllers"
 	"github.com/codegangsta/negroni"
-	"github.com/ademuanthony/Bas/common"
-	"fmt"
+	"github.com/gorilla/mux"
 )
 
 func SetApplicationRoute(router *mux.Router) *mux.Router {

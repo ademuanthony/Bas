@@ -5,5 +5,6 @@
   "DbPassword": "0000",
   "DatabaseName": "bas",
   "Server": "127.0.0.1:8081",
-  "Port": "8080"
+  "Port": "8080",
+  "TokenLifeTime": 5
 }
