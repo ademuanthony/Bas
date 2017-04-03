@@ -95,7 +95,7 @@ func StartServer() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func main() {
+func main1() {
 
 	initKeys()
 	common.StartUp()
