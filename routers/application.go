@@ -12,10 +12,10 @@ func SetApplicationRoute(router *mux.Router) *mux.Router {
 	applicationRoute := mux.NewRouter()
 
 	fmt.Println("Setting application route")
-	applicationRoute.HandleFunc("/applications", controllers.ApplicationCreate).Methods("POST")
-	applicationRoute.HandleFunc("/applications", controllers.ApplicationCreate).Methods("GET")
-	applicationRoute.HandleFunc("/applications/{id}", controllers.ApplicationCreate).Methods("GET")
-	applicationRoute.HandleFunc("/applications/{id}", controllers.ApplicationCreate).Methods("DELETE")
+	applicationRoute.HandleFunc("/applications", controllers.CreateApplication).Methods("POST")
+	applicationRoute.HandleFunc("/applications", controllers.GetApplications).Methods("GET")
+	applicationRoute.HandleFunc("/applications/{id}", controllers.GetApplication).Methods("GET")
+	applicationRoute.HandleFunc("/applications/{id}", controllers.DeleteApplication).Methods("DELETE")
 
 	router.PathPrefix("/applications").Handler(negroni.New(
 		negroni.HandlerFunc(common.Authorize),

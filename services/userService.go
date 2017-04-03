@@ -1,4 +1,4 @@
-package data
+package services
 
 import (
 	"errors"
@@ -9,11 +9,11 @@ import (
 	"time"
 )
 
-type UserRepository struct {
+type UserService struct {
 	Orm orm.Ormer
 }
 
-func (this UserRepository) CreateUser(user models.User) (int64, error) {
+func (this *UserService) CreateUser(user models.User) (int64, error) {
 	u := models.User{Username: user.Username}
 	err := this.Orm.QueryTable("user").Filter("username__exact", user.Username).One(&u)
 	if err == nil {
@@ -36,7 +36,7 @@ func (this UserRepository) CreateUser(user models.User) (int64, error) {
 	return id, err
 }
 
-func (this UserRepository) Login(username, password string) (models.User, error) {
+func (this *UserService) Login(username, password string) (models.User, error) {
 	user := models.User{Username: username}
 	err := this.Orm.QueryTable(new(models.User)).Filter("username", username).One(&user)
 

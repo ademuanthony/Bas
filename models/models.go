@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	orm.RegisterModel(new(User))
+	orm.RegisterModel(new(Application), new(User), new(Role), new(UserRole), new(Resource), new(RoleResource))
 }
 
 type (
@@ -49,10 +49,8 @@ type (
 		CreatedBy   int64
 		UpdatedDate time.Time
 		UpdatedBy   int64
-		Role        Role
-		RoleId      int
-		User        User
-		UserId      int
+		Role        *Role `orm:"rel(fk)"`
+		User        *User `orm:"rel(fk)"`
 	}
 
 	Resource struct {
@@ -62,7 +60,12 @@ type (
 		UpdatedDate   time.Time
 		UpdatedBy     int64
 		Key           string
-		Application   Application
-		ApplicationId int
+		Application   *Application `orm:"rel(fk)"`
+	}
+
+	RoleResource struct {
+		Id int64
+		RoleId int64
+		ResourceId int64
 	}
 )

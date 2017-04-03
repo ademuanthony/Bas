@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"reflect"
 	"errors"
+	"github.com/ademuanthony/Bas/resources"
 )
 
 type configuration struct {
@@ -61,10 +62,11 @@ func DisplayAppError(w http.ResponseWriter, handlerError error, message string, 
 	}
 }
 
-func SendResult(w http.ResponseWriter, data interface{}, statusCode int) {
-	if j, err := json.Marshal(data); err != nil {
+func SendResult(w http.ResponseWriter, response resources.ResponseResource, statusCode int) {
+	if j, err := json.Marshal(response); err != nil {
 		DisplayAppError(w, err, "An unexpected error has eccured", 500)
 	} else {
+		response.StatusCode = statusCode
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(statusCode)
 		w.Write(j)

@@ -32,6 +32,7 @@ type TokenData struct {
 	Permissions []int64
 }
 
+
 // Read key files before starting http handlers
 func initKeys() {
 	var err error
@@ -98,7 +99,7 @@ func Authorize(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 				DisplayAppError(w, err, "Access Token is expired, Get a new one", 401)
 				return
 			default:
-				DisplayAppError(w, err, "Error while parsing Access Token", 500)
+				DisplayAppError(w, err, "Error while parsing Access Token", http.StatusBadRequest)
 				return
 			}
 		default:
@@ -109,7 +110,7 @@ func Authorize(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	}
 	if token.Valid {
 		claims := token.Claims.(jwt.MapClaims)
-		r = r.WithContext(context.WithValue(r.Context(), "user", claims["UserInfo"]))
+		r = r.WithContext(context.WithValue(r.Context(), "UserInfo", claims["UserInfo"]))
 		next(w, r)
 	} else {
 		DisplayAppError(w, err, "Invalid Access Token", 401)
