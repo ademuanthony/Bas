@@ -36,7 +36,7 @@ func (this *ResourceService) GetByName(name struct{}) (models.Resource, error) {
 
 func (this *ResourceService) GetAll() ([]models.Resource, error) {
 	var resources []models.Resource
-	_, err := this.Orm.QueryTable("resource").All(&resources)
+	_, err := this.Orm.QueryTable("resource").RelatedSel().All(&resources)
 
 	return resources, err
 }
