@@ -27,6 +27,18 @@ func (this ApplicationService) GetById(id int64) (models.Application, error) {
 	return application, err
 }
 
+func (this ApplicationService) DeleteApplication(id int64) (string, error) {
+	application, err := this.GetById(id)
+	if err != nil{
+		return "Application not found", err
+	}
+	_, err = this.Orm.Delete(application)
+	if err != nil{
+		return "Unable to delete application. Please try again", err
+	}
+	return "Application delete", nil
+}
+
 func (this ApplicationService) GetByName(name struct{}) (models.Application, error) {
 	var application models.Application
 	err := this.Orm.QueryTable("application").Filter("name", name).One(&application)

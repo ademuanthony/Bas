@@ -66,6 +66,7 @@ type (
 	RoleResource struct {
 		Id int64
 		RoleId int64
-		ResourceId int64
+		Resource *Resource `orm:"rel(fk)"`
+
 	}
 )

@@ -7,7 +7,7 @@ func InitRoutes() *mux.Router {
 	//Routes for application
 	router = SetApplicationRoute(router)
 	router = SetAuthRoute(router)
-	router = SetResourceRoute(router)
+	router = SetAclRoutes(router)
 
 	return router
 }
