@@ -47,8 +47,6 @@ type (
 		Id          int64
 		CreatedDate time.Time
 		CreatedBy   int64
-		UpdatedDate time.Time
-		UpdatedBy   int64
 		Role        *Role `orm:"rel(fk)"`
 		User        *User `orm:"rel(fk)"`
 	}

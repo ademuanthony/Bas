@@ -48,9 +48,12 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) {
 		common.DisplayAppError(w, err, "Invalid credentials", http.StatusUnauthorized)
 		return
 	} else { // if login is successful
+
+		service := services.AclService{Orm:orm.NewOrm()}
+
+		resourceIds := service.GetResourcesForUser(user.Id)
 		// Generate json web token
-		tokenData := common.TokenData{UserId:user.Id, Permissions:[]int64{1,2,3,4,5,6,7,8,9,0,12,32,43,545,665,75,777,1,2,3,
-			4,5,6,7,8,9,0,12,32,43,545,665,75,777,1,2,3,4,5,6,7,8,9,0,12,32,43,545,665,75,777,23}} //todo
+		tokenData := common.TokenData{UserId:user.Id, Permissions:resourceIds}
 		token, err = common.GenerateJWT(tokenData)
 		if err != nil {
 			common.DisplayAppError(w, err, "Error while generating access token", 500)

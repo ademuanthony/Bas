@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c45418dd-2d56-483b-8429-7a3ae872f4bb" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/routers/resource.go" afterPath="$PROJECT_DIR$/routers/aclRoutes.go" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/services/resourceService.go" afterPath="$PROJECT_DIR$/services/aclService.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__Bas_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/GOPATH__Bas_.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/applicationController.go" afterPath="$PROJECT_DIR$/controllers/applicationController.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/authController.go" afterPath="$PROJECT_DIR$/controllers/authController.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/resourceController.go" afterPath="$PROJECT_DIR$/controllers/resourceController.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/models.go" afterPath="$PROJECT_DIR$/models/models.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/responseResource.go" afterPath="$PROJECT_DIR$/resources/responseResource.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routers/router.go" afterPath="$PROJECT_DIR$/routers/router.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services/applicationService.go" afterPath="$PROJECT_DIR$/services/applicationService.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routers/aclRoutes.go" afterPath="$PROJECT_DIR$/routers/aclRoutes.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services/aclService.go" afterPath="$PROJECT_DIR$/services/aclService.go" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +27,18 @@
       <file leaf-file-name="models.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/models.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="68" column="26" lean-forward="false" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
+            <state relative-caret-position="828">
+              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbUtils.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/dbUtils.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -68,8 +76,8 @@
       <file leaf-file-name="resourceController.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/resourceController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
-              <caret line="334" column="10" lean-forward="false" selection-start-line="334" selection-start-column="10" selection-end-line="334" selection-end-column="32" />
+            <state relative-caret-position="1512">
+              <caret line="355" column="64" lean-forward="false" selection-start-line="355" selection-start-column="64" selection-end-line="355" selection-end-column="64" />
               <folding>
                 <element signature="n#!!block;n#CreateResource#0" expanded="false" />
                 <element signature="n#!!block;n#GetResources#0" expanded="false" />
@@ -79,22 +87,35 @@
                 <element signature="n#!!block;n#GetRoles#0" expanded="false" />
                 <element signature="n#!!block;n#GetRole#0" expanded="false" />
                 <element signature="n#!!block;n#DeleteRole#0" expanded="false" />
-                <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
                 <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
                 <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
+                <element signature="n#!!block;n#GetUsersInRole#0" expanded="false" />
+                <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
+                <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
+                <element signature="n#!!block;n#GetRolesForUser#0" expanded="false" />
+                <element signature="n#!!block;n#GetResourceForUser#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="aclRoutes.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="authController.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/authController.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="aclRoutes.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routers/aclRoutes.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+            <state relative-caret-position="882">
+              <caret line="54" column="83" lean-forward="false" selection-start-line="54" selection-start-column="83" selection-end-line="54" selection-end-column="83" />
               <folding>
                 <element signature="e#17#168#0" expanded="true" />
-                <element signature="n#!!block;n#setAclRoleRoute#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,15 +124,14 @@
       <file leaf-file-name="aclService.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/aclService.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="174" column="24" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
+            <state relative-caret-position="3132">
+              <caret line="220" column="58" lean-forward="false" selection-start-line="220" selection-start-column="58" selection-end-line="220" selection-end-column="58" />
               <folding>
+                <element signature="n#!!block;n#GetRoles#0" expanded="false" />
+                <element signature="n#!!block;n#GetRoleByName#0" expanded="false" />
+                <element signature="n#!!block;n#GetRoleById#0" expanded="false" />
                 <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
-                <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
-                <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
                 <element signature="n#!!block;n#GetResourcesByRoleId#0" expanded="false" />
-                <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
-                <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -120,11 +140,19 @@
       <file leaf-file-name="userService.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/userService.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!block;n#CreateUser#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="442">
+              <caret line="47" column="9" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="47" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sql.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/sql.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -154,7 +182,6 @@
         <option value="$PROJECT_DIR$/routers/application.go" />
         <option value="$PROJECT_DIR$/common/utils.go" />
         <option value="$PROJECT_DIR$/routers/router.go" />
-        <option value="$PROJECT_DIR$/controllers/authController.go" />
         <option value="$PROJECT_DIR$/common/auth.go" />
         <option value="$PROJECT_DIR$/common/config.json" />
         <option value="$PROJECT_DIR$/resources/aclResource.go" />
@@ -163,13 +190,14 @@
         <option value="$PROJECT_DIR$/api.go" />
         <option value="$PROJECT_DIR$/resources/responseResource.go" />
         <option value="$PROJECT_DIR$/services/userService.go" />
-        <option value="$PROJECT_DIR$/models/models.go" />
         <option value="$PROJECT_DIR$/services/applicationService.go" />
         <option value="$PROJECT_DIR$/controllers/applicationController.go" />
-        <option value="$PROJECT_DIR$/controllers/resourceController.go" />
         <option value="$PROJECT_DIR$/routers/resource.go" />
-        <option value="$PROJECT_DIR$/services/aclService.go" />
         <option value="$PROJECT_DIR$/routers/aclRoutes.go" />
+        <option value="$PROJECT_DIR$/models/models.go" />
+        <option value="$PROJECT_DIR$/controllers/resourceController.go" />
+        <option value="$PROJECT_DIR$/services/aclService.go" />
+        <option value="$PROJECT_DIR$/controllers/authController.go" />
       </list>
     </option>
   </component>
@@ -198,6 +226,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -220,55 +249,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -557,6 +543,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -579,8 +566,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20066334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34029227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21171919" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Running Info" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -642,9 +629,13 @@
             <element signature="n#!!block;n#GetRoles#0" expanded="false" />
             <element signature="n#!!block;n#GetRole#0" expanded="false" />
             <element signature="n#!!block;n#DeleteRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
             <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
             <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetUsersInRole#0" expanded="false" />
+            <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
+            <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetRolesForUser#0" expanded="false" />
+            <element signature="n#!!block;n#GetResourceForUser#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -654,12 +645,11 @@
         <state relative-caret-position="1746">
           <caret line="101" column="18" lean-forward="true" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
           <folding>
+            <element signature="n#!!block;n#GetRoles#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleByName#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleById#0" expanded="false" />
             <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
-            <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
             <element signature="n#!!block;n#GetResourcesByRoleId#0" expanded="false" />
-            <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
-            <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -668,9 +658,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!block;n#CreateUser#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -712,9 +700,13 @@
             <element signature="n#!!block;n#GetRoles#0" expanded="false" />
             <element signature="n#!!block;n#GetRole#0" expanded="false" />
             <element signature="n#!!block;n#DeleteRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
             <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
             <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetUsersInRole#0" expanded="false" />
+            <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
+            <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetRolesForUser#0" expanded="false" />
+            <element signature="n#!!block;n#GetResourceForUser#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -738,12 +730,11 @@
         <state relative-caret-position="576">
           <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding>
+            <element signature="n#!!block;n#GetRoles#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleByName#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleById#0" expanded="false" />
             <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
-            <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
             <element signature="n#!!block;n#GetResourcesByRoleId#0" expanded="false" />
-            <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
-            <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -865,13 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/dbUtils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/userService.go" />
     <entry file="file://$PROJECT_DIR$/resources/authResources.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -929,24 +913,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/authController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/aclResource.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/sql.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -983,24 +953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/models.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="68" column="26" lean-forward="false" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/userService.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#CreateUser#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/applicationService.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
@@ -1019,14 +971,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="226" column="8" lean-forward="false" selection-start-line="226" selection-start-column="8" selection-end-line="226" selection-end-column="8" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routers/aclRoutes.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="54" column="83" lean-forward="false" selection-start-line="54" selection-start-column="83" selection-end-line="54" selection-end-column="83" />
+          <folding>
+            <element signature="e#17#168#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/aclService.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3132">
+          <caret line="220" column="58" lean-forward="false" selection-start-line="220" selection-start-column="58" selection-end-line="220" selection-end-column="58" />
+          <folding>
+            <element signature="n#!!block;n#GetRoles#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleByName#0" expanded="false" />
+            <element signature="n#!!block;n#GetRoleById#0" expanded="false" />
+            <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetResourcesByRoleId#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/resourceController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="334" column="10" lean-forward="false" selection-start-line="334" selection-start-column="10" selection-end-line="334" selection-end-column="32" />
+        <state relative-caret-position="1512">
+          <caret line="355" column="64" lean-forward="false" selection-start-line="355" selection-start-column="64" selection-end-line="355" selection-end-column="64" />
           <folding>
             <element signature="n#!!block;n#CreateResource#0" expanded="false" />
             <element signature="n#!!block;n#GetResources#0" expanded="false" />
@@ -1036,36 +1011,54 @@
             <element signature="n#!!block;n#GetRoles#0" expanded="false" />
             <element signature="n#!!block;n#GetRole#0" expanded="false" />
             <element signature="n#!!block;n#DeleteRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
             <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
             <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/aclService.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="174" column="24" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!block;n#AddResourceToRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourceInRole#0" expanded="false" />
-            <element signature="n#!!block;n#RemoveResourceFromRole#0" expanded="false" />
-            <element signature="n#!!block;n#GetResourcesByRoleId#0" expanded="false" />
+            <element signature="n#!!block;n#GetUsersInRole#0" expanded="false" />
             <element signature="n#!!block;n#AddUserToRole#0" expanded="false" />
             <element signature="n#!!block;n#RemoveUserFromRole#0" expanded="false" />
+            <element signature="n#!!block;n#GetRolesForUser#0" expanded="false" />
+            <element signature="n#!!block;n#GetResourceForUser#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routers/aclRoutes.go">
+    <entry file="file://$PROJECT_DIR$/models/models.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-          <folding>
-            <element signature="e#17#168#0" expanded="true" />
-            <element signature="n#!!block;n#setAclRoleRoute#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="828">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/dbUtils.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/authController.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/userService.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="47" column="9" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="47" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/sql.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

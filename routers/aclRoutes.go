@@ -32,11 +32,11 @@ func setAclRoleRoute(router *mux.Router) *mux.Router {
 	applicationRoute.HandleFunc("/roles", controllers.CreateRole).Methods("POST")
 	applicationRoute.HandleFunc("/roles", controllers.GetRoles).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{id}", controllers.GetRole).Methods("GET")
-	applicationRoute.HandleFunc("/roled/{id}", controllers.DeleteRole).Methods("DELETE")
+	applicationRoute.HandleFunc("/roles/{id}", controllers.DeleteRole).Methods("DELETE")
 
 	applicationRoute.HandleFunc("/roles/{roleId}/resources", controllers.GetResourceInRole).Methods("GET")
-	applicationRoute.HandleFunc("/roles/{roleId}/resources/add/{resourceId}", controllers.AddResourceToRole).Methods("POST")
-	applicationRoute.HandleFunc("/roles/{roleId}/resources/remove/{resourceId}", controllers.RemoveResourceFromRole).Methods("POST")
+	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}", controllers.AddResourceToRole).Methods("POST")
+	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}", controllers.RemoveResourceFromRole).Methods("DELETE")
 
 	applicationRoute.HandleFunc("/roles/{roleId}/users", controllers.GetUsersInRole).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{roleId}/users/{userId}", controllers.AddUserToRole).Methods("POST")

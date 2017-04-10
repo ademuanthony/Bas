@@ -108,7 +108,7 @@ func DeleteResource(w http.ResponseWriter, r *http.Request) {
 }
 
 
-// Handler /roles [POST]
+// Handler /roles 	[POST]
 // creates a new role in the system
 func CreateRole(w http.ResponseWriter, r *http.Request) {
 	currentUser := r.Context().Value("UserInfo").(map[string]interface{})
@@ -118,6 +118,8 @@ func CreateRole(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&role);
 	role.CreatedBy = int64(currentUser["UserId"].(float64))
 	role.CreatedDate = time.Now()
+	role.UpdatedDate = time.Now()
+	role.UpdatedBy = role.CreatedBy
 
 	if err != nil{
 		common.DisplayAppError(w, err, "Invalid request", http.StatusBadRequest)
@@ -133,10 +135,10 @@ func CreateRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.SendResult(w, resources.ResponseResource{Message:"Role created", Success:true}, http.StatusOK)
+	common.SendResult(w, resources.ResponseResource{Message:"Role created", Success:true, Data:role}, http.StatusOK)
 }
 
-// Handler /roles [GET]
+// Handler /roles 	[GET]
 // Returns a list of models.Role
 func GetRoles(w http.ResponseWriter, r *http.Request) {
 	service := services.AclService{Orm:orm.NewOrm()}
@@ -144,7 +146,7 @@ func GetRoles(w http.ResponseWriter, r *http.Request) {
 	common.SendResult(w, resources.ResponseResource{Data:roles, Success:true}, http.StatusOK)
 }
 
-// Handler /roles/{id} [GET]
+// Handler /roles/{id} 	[GET]
 // Returns a single models.Role
 func GetRole(w http.ResponseWriter, r *http.Request)  {
 	vars := mux.Vars(r)
@@ -165,7 +167,7 @@ func GetRole(w http.ResponseWriter, r *http.Request)  {
 	common.SendResult(w, resources.ResponseResource{Data:role, Success:true}, http.StatusOK)
 }
 
-// Handler /roles/{id} [DELETE]
+// Handler /roles/{id} 	[DELETE]
 // Deletes the specified role from the system
 func DeleteRole(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r);
@@ -189,7 +191,7 @@ func DeleteRole(w http.ResponseWriter, r *http.Request) {
 
 
 
-// Handler roles/{roleId}/resources [GET]
+// Handler roles/{roleId}/resources 	[GET]
 // Return all resources in the specified role
 func GetResourceInRole(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -204,7 +206,7 @@ func GetResourceInRole(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Handler roles/{roleId}/resources/add/{resourceId} [POST]
+// Handler roles/{roleId}/resources/add/{resourceId} 	[POST]
 // Add a resource with the specified id to the specified role
 func AddResourceToRole(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -234,7 +236,7 @@ func AddResourceToRole(w http.ResponseWriter, r *http.Request) {
 }
 
 
-// Handler /roles/{roleId}/resources/remove/{resourceId}
+// Handler /roles/{roleId}/resources/remove/{resourceId}	[GET]
 // Removes the specified resourceId from the specified roleId
 func RemoveResourceFromRole(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -299,7 +301,7 @@ func AddUserToRole(w http.ResponseWriter, r *http.Request) {
 	err = service.AddUserToRole(userId, roleId)
 
 	if err != nil{
-		common.DisplayAppError(w, err, err.Error(), http.StatusNoContent)
+		common.DisplayAppError(w, err, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	common.SendResult(w, resources.ResponseResource{Message:"User added to role", Success:true}, http.StatusOK)

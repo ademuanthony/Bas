@@ -4,6 +4,8 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/ademuanthony/Bas/models"
 	"errors"
+	"fmt"
+	"strconv"
 )
 
 type AclService struct {
@@ -82,7 +84,7 @@ func (this AclService) GetRoleById(id int64) (models.Role, error) {
 
 func (this AclService) DeleteRole(roleId int64) error {
 	role, _ := this.GetRoleById(roleId);
-	_, err := this.Orm.Delete(role);
+	_, err := this.Orm.Delete(&role);
 	return err;
 }
 
@@ -120,11 +122,11 @@ func (this *AclService) GetResourceInRole(roleId int64) []*models.Resource {
 
 func (this *AclService) RemoveResourceFromRole(resourceId int64, roleId int64) error {
 	var roleResource models.RoleResource
-	err := this.Orm.QueryTable(new(models.RoleResource)).Filter("roel_id", roleId).Filter("resource_id", resourceId).One(&roleResource)
+	err := this.Orm.QueryTable(new(models.RoleResource)).Filter("role_id", roleId).Filter("resource_id", resourceId).One(&roleResource)
 	if err != nil{
 		return errors.New("The specified resource is not in the given role")
 	}
-	_, err = this.Orm.Delete(roleResource)
+	_, err = this.Orm.Delete(&roleResource)
 	return err
 }
 
@@ -146,12 +148,12 @@ func (this *AclService) GetResourcesByRoleId(roleId int64) []*models.Resource {
 //User role
 func (this *AclService) AddUserToRole(userId int64, roleId int64) error {
 	var user models.User
-	err := this.Orm.QueryTable(new(models.User)).Filter("user_id", userId).One(&user)
+	err := this.Orm.QueryTable(new(models.User)).Filter("id", userId).One(&user)
 	if err != nil{
 		return errors.New("Invalid user Id")
 	}
 	var role models.Role
-	err = this.Orm.QueryTable(new(models.Role)).Filter("role_id").One(&role)
+	err = this.Orm.QueryTable(new(models.Role)).Filter("id", roleId).One(&role)
 	if err != nil{
 		return errors.New("Invalid role Id")
 	}
@@ -181,11 +183,11 @@ func (this *AclService) GetUsersInRole(roleId int64) []*models.User {
 
 func (this *AclService) RemoveUserFromRole(userId int64, roleId int64) error {
 	var userRole models.UserRole
-	err := this.Orm.QueryTable(new(models.UserRole)).Filter("roel_id", roleId).Filter("user_id", userId).One(&userRole)
+	err := this.Orm.QueryTable(new(models.UserRole)).Filter("role_id", roleId).Filter("user_id", userId).One(&userRole)
 	if err != nil{
 		return errors.New("The specified user is not in the given role")
 	}
-	_, err = this.Orm.Delete(userRole)
+	_, err = this.Orm.Delete(&userRole)
 	return err
 }
 
@@ -193,7 +195,7 @@ func (this *AclService) GetRolesForUser(userId int64) []*models.Role {
 	var userRoles []models.UserRole
 	var roles []*models.Role
 
-	_, err := this.Orm.QueryTable(new(models.UserRole)).RelatedSel().Filter("user_id", userId).All(userRoles)
+	_, err := this.Orm.QueryTable(new(models.UserRole)).RelatedSel().Filter("user_id", userId).All(&userRoles)
 	if err != nil{
 		return roles
 	}
@@ -205,11 +207,23 @@ func (this *AclService) GetRolesForUser(userId int64) []*models.Role {
 	return roles
 }
 
-func (this *AclService) GetResourcesForUser(userId int64) interface{} {
-	sql := "SELECT resource.id from resource INNER JOIN role ON resource.role_id = role.id INNER JOIN user_role ON user_role.role_id = role.id" +
+func (this *AclService) GetResourcesForUser(userId int64) []int64 {
+	sql := "SELECT role_resource.resource_id from role_resource INNER JOIN role ON role_resource.role_id = role.id INNER JOIN user_role ON user_role.role_id = role.id" +
 		" WHERE user_role.user_id = ?"
 	resourceIdParam := []orm.Params{}
 	this.Orm.Raw(sql, userId).Values(&resourceIdParam)
 
-	return resourceIdParam
+	fmt.Printf("Resources %v\n", resourceIdParam)
+
+	ids := make([]int64, len(resourceIdParam))
+	for index, param := range resourceIdParam{
+		value := param["resource_id"].(string)
+		id, err := strconv.ParseInt(value, 10, 64)
+		if err != nil{
+			panic(err)
+		}
+		ids[index] = id
+	}
+
+	return ids
 }
