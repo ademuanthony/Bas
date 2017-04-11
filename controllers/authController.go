@@ -60,7 +60,9 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user.PasswordHash = ""
+		/*
 		athUser := resources.AuthUserModel{User: user, Token: token}
-		common.SendResult(w, resources.ResponseResource{Data:athUser, Success:true}, http.StatusOK)
+		*/
+		common.SendResult(w, resources.ResponseResource{Data:token, Success:true}, http.StatusOK)
 	}
 }
