@@ -34,7 +34,7 @@ func (this *AclService) DeleteResourc(id int64) (string, error) {
 	if err != nil{
 		return "Resource not found", err
 	}
-	_, err = this.Orm.Delete(resource)
+	_, err = this.Orm.Delete(&resource)
 	if err != nil{
 		return "Error in delete resource", err
 	}

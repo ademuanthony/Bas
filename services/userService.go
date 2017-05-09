@@ -14,14 +14,12 @@ type UserService struct {
 }
 
 func (this *UserService) CreateUser(user models.User) (int64, error) {
-	u := models.User{Username: user.Username}
-	err := this.Orm.QueryTable("user").Filter("username__exact", user.Username).One(&u)
-	if err == nil {
+	exists := this.Orm.QueryTable("user").Filter("username__exact", user.Username).Exist()
+	if exists {
 		return 0, fmt.Errorf("The selected %s have been taken", "Username")
 	}
-	u = models.User{Email: user.Email}
-	err = this.Orm.QueryTable("user").Filter("email__exact", user.Email).One(&u)
-	if err == nil {
+	exists = this.Orm.QueryTable("user").Filter("email__exact", user.Email).Exist()
+	if exists {
 		return 0, fmt.Errorf("The selected %s have been taken", "Email")
 	}
 	//generate password hash

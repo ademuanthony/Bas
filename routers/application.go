@@ -15,7 +15,7 @@ func SetApplicationRoute(router *mux.Router) *mux.Router {
 	applicationRoute.HandleFunc("/applications", controllers.CreateApplication).Methods("POST")
 	applicationRoute.HandleFunc("/applications", controllers.GetApplications).Methods("GET")
 	applicationRoute.HandleFunc("/applications/{id}", controllers.GetApplication).Methods("GET")
-	applicationRoute.HandleFunc("/applications/{id}", controllers.DeleteApplication).Methods("DELETE")
+	applicationRoute.HandleFunc("/applications/{id}/delete", controllers.DeleteApplication).Methods("POST")
 
 	router.PathPrefix("/applications").Handler(negroni.New(
 		negroni.HandlerFunc(common.Authorize),

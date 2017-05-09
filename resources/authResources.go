@@ -8,7 +8,8 @@ type (
 	}
 
 	LoginModel struct {
-		Username, Password string
+		Username string `json:"username"`
+		Password string	`json:"password"`
 	}
 
 	LoginResource struct {

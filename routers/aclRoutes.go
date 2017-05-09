@@ -13,7 +13,7 @@ func SetAclRoutes(router *mux.Router) *mux.Router {
 	applicationRoute.HandleFunc("/resources", controllers.CreateResource).Methods("POST")
 	applicationRoute.HandleFunc("/resources", controllers.GetResources).Methods("GET")
 	applicationRoute.HandleFunc("/resources/{id}", controllers.GetResourceById).Methods("GET")
-	applicationRoute.HandleFunc("/resources/{id}", controllers.DeleteResource).Methods("DELETE")
+	applicationRoute.HandleFunc("/resources/{id}/delete", controllers.DeleteResource).Methods("POST")
 
 	router.PathPrefix("/resources").Handler(negroni.New(
 		negroni.HandlerFunc(common.Authorize),
@@ -32,15 +32,15 @@ func setAclRoleRoute(router *mux.Router) *mux.Router {
 	applicationRoute.HandleFunc("/roles", controllers.CreateRole).Methods("POST")
 	applicationRoute.HandleFunc("/roles", controllers.GetRoles).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{id}", controllers.GetRole).Methods("GET")
-	applicationRoute.HandleFunc("/roles/{id}", controllers.DeleteRole).Methods("DELETE")
+	applicationRoute.HandleFunc("/roles/{id}/delete", controllers.DeleteRole).Methods("POST")
 
 	applicationRoute.HandleFunc("/roles/{roleId}/resources", controllers.GetResourceInRole).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}", controllers.AddResourceToRole).Methods("POST")
-	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}", controllers.RemoveResourceFromRole).Methods("DELETE")
+	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}/delete", controllers.RemoveResourceFromRole).Methods("POST")
 
 	applicationRoute.HandleFunc("/roles/{roleId}/users", controllers.GetUsersInRole).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{roleId}/users/{userId}", controllers.AddUserToRole).Methods("POST")
-	applicationRoute.HandleFunc("/roles/{roleId}/users/{userId}", controllers.RemoveUserFromRole).Methods("DELETE")
+	applicationRoute.HandleFunc("/roles/{roleId}/users/{userId}/delete", controllers.RemoveUserFromRole).Methods("POST")
 
 	router.PathPrefix("/roles").Handler(negroni.New(
 		negroni.HandlerFunc(common.Authorize),

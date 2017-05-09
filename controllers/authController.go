@@ -32,23 +32,22 @@ func AuthRegister(w http.ResponseWriter, r *http.Request) {
 }
 
 func AuthLogin(w http.ResponseWriter, r *http.Request) {
-	var dataResource resources.LoginResource
+	var loginModel resources.LoginModel
 	var token string
 	// Decode the incoming login json
-	err := json.NewDecoder(r.Body).Decode(&dataResource)
+	err := json.NewDecoder(r.Body).Decode(&loginModel)
 	if err != nil {
 		common.DisplayAppError(w, err, "Invalid login data", http.StatusBadRequest)
 		return
 	}
-	loginModel := dataResource.Data
 
 	userService := services.UserService{Orm: orm.NewOrm()}
 	// Authenticate the login user
 	if user, err := userService.Login(loginModel.Username, loginModel.Password); err != nil {
 		common.DisplayAppError(w, err, "Invalid credentials", http.StatusUnauthorized)
 		return
-	} else { // if login is successful
-
+	} else {
+		// if login is successful
 		service := services.AclService{Orm:orm.NewOrm()}
 
 		resourceIds := service.GetResourcesForUser(user.Id)
