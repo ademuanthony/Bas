@@ -61,7 +61,7 @@ func (this *UserService) ChangePassword(username, newPassword string) error {
 	if err != nil{
 		return errors.New("Unknown error has occured")
 	}
-	user.PasswordHash = haspPassword
+	user.PasswordHash = string(haspPassword)
 	this.Orm.Update(&user)
 	return nil
 }
