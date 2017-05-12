@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type AclService struct {
@@ -29,11 +30,19 @@ func (this *AclService) GetResourceById(id int64) (models.Resource, error) {
 	return resource, err
 }
 
-func (this *AclService) DeleteResourc(id int64) (string, error) {
+func (this *AclService) DeleteResource(id int64) (string, error) {
 	resource, err := this.GetResourceById(id)
 	if err != nil{
 		return "Resource not found", err
 	}
+	//remove this resource from all roles
+	var roleResources []models.RoleResource
+	if _, err = this.Orm.QueryTable(new(models.RoleResource)).Filter("resource_id", id).All(&roleResources); err == nil{
+		for _, roleResource := range roleResources{
+			this.Orm.Delete(&roleResource)
+		}
+	}
+
 	_, err = this.Orm.Delete(&resource)
 	if err != nil{
 		return "Error in delete resource", err
@@ -106,7 +115,40 @@ func (this *AclService) AddResourceToRole(resourceId int64, roleId int64) (int64
 	return this.Orm.Insert(&roleResource)
 }
 
-func (this *AclService) GetResourceInRole(roleId int64) []*models.Resource {
+func (this *AclService) AddResourcesToRole(resourceIds []int64, roleId int64) error {
+	commaSeparatedResourceList := arrayToString(resourceIds, ",")
+
+	//get resources to be deleted
+	sql := fmt.Sprintf("SELECT resource.id FROM resource INNER JOIN role_resource ON resource.id = role_resource.resource_id " +
+		"WHERE role_id = ? AND resource_id NOT IN (%s)", commaSeparatedResourceList)
+	resourceIdsToDeleteParam := []orm.Params{}
+	_, err := this.Orm.Raw(sql, roleId).Values(&resourceIdsToDeleteParam)
+	if err != nil && err != orm.ErrNoRows{
+		return err
+	}
+	if err == nil{
+		for _, resourceToDelete := range resourceIdsToDeleteParam{
+			resourceId, _ := strconv.ParseInt(resourceToDelete["id"].(string), 10, 64)
+			this.RemoveResourceFromRole(resourceId, roleId)
+		}
+	}
+
+	for _, resourceId := range resourceIds{
+		if !this.Orm.QueryTable(new(models.RoleResource)).Filter("role_id", roleId).Filter("resource_id", resourceId).Exist(){
+			this.AddResourceToRole(resourceId, roleId)
+		}
+	}
+
+	return nil
+}
+
+func arrayToString(a []int64, delimiter string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delimiter, -1), "[]")
+	//return strings.Trim(strings.Join(strings.Split(fmt.Sprint(a), " "), delimiter), "[]")
+	//return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(a)), delimiter), "[]")
+}
+
+func (this *AclService) GetResourcesInRole(roleId int64) []*models.Resource {
 
 	var roleResources []models.RoleResource
 

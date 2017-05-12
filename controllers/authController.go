@@ -65,3 +65,7 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) {
 		common.SendResult(w, resources.ResponseResource{Data:token, Success:true}, http.StatusOK)
 	}
 }
+
+func ChangePassword() {
+
+}

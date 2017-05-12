@@ -52,13 +52,13 @@ type (
 	}
 
 	Resource struct {
-		Id            int64
-		CreatedDate   time.Time
-		CreatedBy     int64
-		UpdatedDate   time.Time
-		UpdatedBy     int64
-		Key           string
-		Application   *Application `orm:"rel(fk)"`
+		Id            int64			`json:"id"`
+		CreatedDate   time.Time			`json:"-"`
+		CreatedBy     int64			`json:"-"`
+		UpdatedDate   time.Time			`json:"-"`
+		UpdatedBy     int64			`json:"-"`
+		Key           string			`json:"key"`
+		Application   *Application		`orm:"rel(fk)" json:"-"`
 	}
 
 	RoleResource struct {

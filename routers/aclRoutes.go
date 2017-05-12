@@ -11,6 +11,7 @@ func SetAclRoutes(router *mux.Router) *mux.Router {
 	applicationRoute := mux.NewRouter()
 
 	applicationRoute.HandleFunc("/resources", controllers.CreateResource).Methods("POST")
+	applicationRoute.HandleFunc("/resources/createmany", controllers.CreateResources).Methods("POST")
 	applicationRoute.HandleFunc("/resources", controllers.GetResources).Methods("GET")
 	applicationRoute.HandleFunc("/resources/{id}", controllers.GetResourceById).Methods("GET")
 	applicationRoute.HandleFunc("/resources/{id}/delete", controllers.DeleteResource).Methods("POST")
@@ -36,6 +37,7 @@ func setAclRoleRoute(router *mux.Router) *mux.Router {
 
 	applicationRoute.HandleFunc("/roles/{roleId}/resources", controllers.GetResourceInRole).Methods("GET")
 	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}", controllers.AddResourceToRole).Methods("POST")
+	applicationRoute.HandleFunc("/roles/{roleId}/resources", controllers.AddResourcesToRole).Methods("POST")
 	applicationRoute.HandleFunc("/roles/{roleId}/resources/{resourceId}/delete", controllers.RemoveResourceFromRole).Methods("POST")
 
 	applicationRoute.HandleFunc("/roles/{roleId}/users", controllers.GetUsersInRole).Methods("GET")

@@ -46,3 +46,22 @@ func (this *UserService) Login(username, password string) (models.User, error) {
 	}
 	return user, nil
 }
+
+func (this *UserService) ChangePassword(username, newPassword string) error {
+	user := models.User{Username:username}
+	err := this.Orm.QueryTable(new(models.User)).Filter("username", username).One(&user)
+	if err != nil{
+		return errors.New("User not found")
+	}
+
+	/*if err := bcrypt.CompareHashAndPassword(user.PasswordHash, []byte(password)); err != nil{
+		return errors.New("Invalid credentials")
+	}*/
+	haspPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	if err != nil{
+		return errors.New("Unknown error has occured")
+	}
+	user.PasswordHash = haspPassword
+	this.Orm.Update(&user)
+	return nil
+}

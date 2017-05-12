@@ -55,6 +55,59 @@ func CreateResource(w http.ResponseWriter, r *http.Request) {
 	common.SendResult(w, resources.ResponseResource{Data:resource, Message:"Resource created", Success:true}, http.StatusCreated)
 }
 
+
+// Handler /resources/createmany [POST]
+// Creates a new role in the system
+func CreateResources(w http.ResponseWriter, r *http.Request) {
+
+	currentUser := r.Context().Value("UserInfo").(map[string]interface{})
+
+	var resourcesVm resources.CreateResourcesInputDto
+
+	err := json.NewDecoder(r.Body).Decode(&resourcesVm);
+
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid request", http.StatusBadRequest)
+		return
+	}
+
+	resourceService := services.AclService{Orm:orm.NewOrm()}
+	application := new(models.Application)
+	application.Id = resourcesVm.ApplicationId
+
+	var outputs = make([]resources.CreateResourcesOutputDto, len(resourcesVm.Keys))
+
+	for index, key := range resourcesVm.Keys{
+		resource := models.Resource{
+			CreatedBy:int64(currentUser["UserId"].(float64)),
+			UpdatedBy:int64(currentUser["UserId"].(float64)),
+			CreatedDate:time.Now(),
+			UpdatedDate:time.Now(),
+			Key:key,
+			Application:application,
+		}
+
+		resource.CreatedDate = time.Now()
+		resource.CreatedBy = int64(currentUser["UserId"].(float64))
+		resource.UpdatedDate = time.Now()
+		resource.UpdatedBy = int64(currentUser["UserId"].(float64))
+
+		resource, err = resourceService.CreateResource(resource)
+
+		output := resources.CreateResourcesOutputDto{Key:key}
+
+		if err != nil{
+			output.Message = err.Error()
+			output.Success = false
+		}else{
+			output.Success = true
+		}
+		outputs[index] = output
+	}
+
+	common.SendResult(w, resources.ResponseResource{Data:outputs, Message:"Resources created", Success:true}, http.StatusCreated)
+}
+
 // Handler /resources [GET]
 // Returns a list of Resources
 func GetResources(w http.ResponseWriter, r *http.Request) {
@@ -88,7 +141,7 @@ func GetResourceById(w http.ResponseWriter, r *http.Request) {
 	common.SendResult(w, resources.ResponseResource{Data:resource,Success:true}, http.StatusOK)
 }
 
-// Handler /resources/{id} [DELETE]
+// Handler /resources/{id}/delete [POST]
 // Deletes the resource with the specified id
 func DeleteResource(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -97,7 +150,7 @@ func DeleteResource(w http.ResponseWriter, r *http.Request) {
 		common.DisplayAppError(w, err, "Please send a valid ID", http.StatusBadRequest)
 	}
 	service := services.AclService{Orm:orm.NewOrm()}
-	message, err := service.DeleteResourc(id)
+	message, err := service.DeleteResource(id)
 
 	if err != nil{
 		common.DisplayAppError(w, err, message, http.StatusNotFound)
@@ -201,7 +254,7 @@ func GetResourceInRole(w http.ResponseWriter, r *http.Request) {
 		common.DisplayAppError(w, err, "Invalid Id", http.StatusBadRequest)
 	}
 	service := services.AclService{Orm:orm.NewOrm()}
-	_resources := service.GetResourceInRole(id);
+	_resources := service.GetResourcesInRole(id);
 	common.SendResult(w, resources.ResponseResource{Data:_resources, Success:true}, http.StatusOK)
 
 }
@@ -235,6 +288,23 @@ func AddResourceToRole(w http.ResponseWriter, r *http.Request) {
 	common.SendResult(w, resources.ResponseResource{Message:"Resource added to role", Success:true, Data:id}, http.StatusOK)
 }
 
+// Handler roles/roleId/resources/add	[POST]
+// Add a list of resources to the specified role
+func AddResourcesToRole(w http.ResponseWriter, r *http.Request) {
+	//currentUser := r.Context().Value("UserInfo").(map[string]interface{})
+
+	var dto resources.AddResourcesToRoleInputDto
+	err := json.NewDecoder(r.Body).Decode(&dto)
+	if err != nil{
+		common.DisplayAppError(w, err, err.Error(), http.StatusInternalServerError)
+	}
+	service := services.AclService{Orm:orm.NewOrm()}
+	err = service.AddResourcesToRole(dto.ResourceIds, dto.RoleId)
+	if err != nil{
+		common.DisplayAppError(w, err, err.Error(), http.StatusInternalServerError)
+	}
+	common.SendResult(w, resources.ResponseResource{Message:"Resources Added", StatusCode:http.StatusCreated, Success:true}, http.StatusCreated)
+}
 
 // Handler /roles/{roleId}/resources/remove/{resourceId}	[GET]
 // Removes the specified resourceId from the specified roleId
