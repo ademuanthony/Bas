@@ -15,7 +15,7 @@ func createDatabaseConnection() {
 	/*err = orm.RegisterDataBase("default", "mysql", fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",
 	AppConfig.DbUserName, AppConfig.DbPassword, AppConfig.Database), 30)*/
 	// set default database
-	orm.RegisterDataBase("default", "mysql", "root:0000@/bas?charset=utf8", 30)
+	orm.RegisterDataBase("default", "mysql", "root:@/bas?charset=utf8", 30)
 
 	if err != nil {
 		panic(err)

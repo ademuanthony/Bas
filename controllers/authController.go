@@ -7,6 +7,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"net/http"
 	"github.com/ademuanthony/Bas/services"
+	"errors"
 )
 
 func AuthRegister(w http.ResponseWriter, r *http.Request) {
@@ -66,6 +67,26 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ChangePassword() {
+func ChangePassword(w http.ResponseWriter, r * http.Request) {
+	var model resources.ChangePasswordModel
+	// Decode the incoming json
+	err := json.NewDecoder(r.Body).Decode(&model)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid request data", http.StatusBadRequest)
+		return
+	}
 
+	userService := services.UserService{Orm: orm.NewOrm()}
+	// check to see that the newpassword matches its confirmation
+	if model.NewPassword != model.ConfirmPassword{
+		common.DisplayAppError(w, errors.New("Wrong password confirmation"), "Wrong password confirmation", http.StatusBadRequest)
+		return
+	}
+	currentUser := r.Context().Value("UserInfo").(map[string]interface{})
+	err = userService.ChangePassword(int64(currentUser["UserId"].(float64)), model.OldPassword, model.NewPassword)
+	if err != nil{
+		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+	common.SendResult(w, resources.ResponseResource{Data:true, Success:true}, http.StatusOK)
 }
