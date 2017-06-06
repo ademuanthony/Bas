@@ -45,12 +45,15 @@ func AuthCreateAccounts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	users := make([]models.User, len(userResources))
+	o := orm.NewOrm()
+	o.Begin()
 	for index, userResource := range userResources{
 		user := userResource.Data
-		userService := services.UserService{Orm: orm.NewOrm()}
+		userService := services.UserService{Orm: o}
 		id, err := userService.CreateUser(user)
 		if err != nil {
 			common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+			o.Rollback()
 			return
 		}
 		user.PasswordHash = ""
@@ -58,6 +61,7 @@ func AuthCreateAccounts(w http.ResponseWriter, r *http.Request) {
 		users[index] = user
 	}
 
+	o.Commit()
 	common.SendResult(w, resources.ResponseResource{Data: users, Success:true}, http.StatusCreated)
 
 }
