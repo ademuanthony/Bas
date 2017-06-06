@@ -10,6 +10,7 @@ import (
 func SetAuthRoute(router *mux.Router) *mux.Router {
 	router.HandleFunc("/auth/login", controllers.AuthLogin).Methods("POST")
 	router.HandleFunc("/auth/register", controllers.AuthRegister).Methods("POST")
+	router.HandleFunc("/auth/createaccounts", controllers.AuthCreateAccounts).Methods("POST")
 
 	applicationRoute := mux.NewRouter()
 	//applicationRoute.HandleFunc("/auth/register", controllers.AuthRegister).Methods("POST")

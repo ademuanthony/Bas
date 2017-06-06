@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"github.com/ademuanthony/Bas/services"
 	"errors"
+	"github.com/ademuanthony/Bas/models"
 )
 
 func AuthRegister(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,35 @@ func AuthRegister(w http.ResponseWriter, r *http.Request) {
 	user.PasswordHash = ""
 	user.Id = id
 	common.SendResult(w, resources.ResponseResource{Data: user, Success:true}, http.StatusCreated)
+
+}
+
+
+func AuthCreateAccounts(w http.ResponseWriter, r *http.Request) {
+	currentUser := r.Context().Value("UserInfo")
+	common.Log("CurrentUser", currentUser)
+	var userResources []resources.UserResource
+	err := json.NewDecoder(r.Body).Decode(&userResources)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid user data", http.StatusBadRequest)
+		return
+	}
+
+	users := make([]models.User, len(userResources))
+	for index, userResource := range userResources{
+		user := userResource.Data
+		userService := services.UserService{Orm: orm.NewOrm()}
+		id, err := userService.CreateUser(user)
+		if err != nil {
+			common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+			return
+		}
+		user.PasswordHash = ""
+		user.Id = id
+		users[index] = user
+	}
+
+	common.SendResult(w, resources.ResponseResource{Data: users, Success:true}, http.StatusCreated)
 
 }
 

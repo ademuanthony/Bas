@@ -2,7 +2,7 @@
   "DbDriver": "mysql",
   "DbHost": "127.0.0.1",
   "DbUsername": "root",
-  "DbPassword": "0000",
+  "DbPassword": "",
   "DatabaseName": "bas",
   "Server": "127.0.0.1:8080",
   "Port": "8080",
