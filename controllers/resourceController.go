@@ -155,7 +155,7 @@ func UpdateResource(w http.ResponseWriter, r *http.Request) {
 		common.SendResult(w, resources.ResponseResource{Message:err.Error(), Success:false}, http.StatusNotAcceptable)
 		return
 	}
-	common.SendResult(w, resources.ResponseResource{Data:resource, Message:"Resource created", Success:true}, http.StatusCreated)
+	common.SendResult(w, resources.ResponseResource{Data:resource, Message:"Resource updated", Success:true}, http.StatusCreated)
 }
 
 
