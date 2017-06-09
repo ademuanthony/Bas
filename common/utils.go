@@ -49,7 +49,6 @@ type (
 )
 
 func DisplayAppError(w http.ResponseWriter, handlerError error, message string, code int) {
-	panic(handlerError)
 	errObj := appError{
 		Error:      handlerError.Error(),
 		Message:    message,
