@@ -19,8 +19,8 @@ func (this EmailService) SendEmail(from, to, title, body, contentType string) er
 
 
 	d := gomail.NewDialer("smtp.superfluxnigeria.com", 587,
-		"anthony_ademu@superfluxnigeria.com",
-		"Ademu_17")
+		"helpdesk@superfluxnigeria.com",
+		"Software_2017")
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	// Send the email to Bob, Cora and Dan.
