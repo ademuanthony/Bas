@@ -1,10 +1,14 @@
 package services
 
-import "gopkg.in/gomail.v2"
+import (
+	"gopkg.in/gomail.v2"
+	"crypto/tls"
+)
 
 type EmailService struct {
 
 }
+
 
 func (this EmailService) SendEmail(from, to, title, body, contentType string) error {
 	m := gomail.NewMessage()
@@ -13,9 +17,11 @@ func (this EmailService) SendEmail(from, to, title, body, contentType string) er
 	m.SetHeader("Subject", title)
 	m.SetBody(contentType, body)
 
-	d := gomail.NewDialer("smtp.elasticemail.com", 587,
-		"ademuanthony@gmail.com",
-		"dda405b5-4b2b-42ec-bd42-ce791665da77")
+
+	d := gomail.NewDialer("smtp.superfluxnigeria.com", 587,
+		"anthony_ademu@superfluxnigeria.com",
+		"Ademu_17")
+	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	// Send the email to Bob, Cora and Dan.
 	if err := d.DialAndSend(m); err != nil {
@@ -23,4 +29,12 @@ func (this EmailService) SendEmail(from, to, title, body, contentType string) er
 		return err
 	}
 	return nil
+}
+
+
+type EmailUser struct {
+	Username    string
+	Password    string
+	EmailServer string
+	Port        int
 }
