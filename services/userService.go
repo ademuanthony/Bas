@@ -78,7 +78,7 @@ func (this *UserService) Login(username, password string) (models.User, error) {
 
 	//err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
 	if err != nil {
-		panic(err)
+		//panic(err)
 		return models.User{}, errors.New("Invalid credentials")
 	}
 

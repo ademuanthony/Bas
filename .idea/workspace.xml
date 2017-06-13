@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="899f5e7f-501e-45bf-be10-5f9a14d7a0a5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/authController.go" afterPath="$PROJECT_DIR$/controllers/authController.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routers/auth.go" afterPath="$PROJECT_DIR$/routers/auth.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services/userService.go" afterPath="$PROJECT_DIR$/services/userService.go" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,27 +25,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auth.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="auth.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routers/auth.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+            <state relative-caret-position="355">
+              <caret line="39" column="54" lean-forward="true" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="authController.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="authController.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/authController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="196" column="22" lean-forward="true" selection-start-line="196" selection-start-column="22" selection-end-line="196" selection-end-column="22" />
+            <state relative-caret-position="155">
+              <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
               <folding>
                 <element signature="n#!!block;n#AuthRegister#0" expanded="false" />
                 <element signature="n#!!block;n#AuthUpdate#0" expanded="false" />
                 <element signature="n#!!block;n#AuthCreateAccounts#0" expanded="false" />
                 <element signature="n#!!block;n#AuthLogin#0" expanded="false" />
                 <element signature="n#!!block;n#ChangePassword#0" expanded="false" />
+                <element signature="n#!!block;n#ChangePasswordForId#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -57,8 +55,8 @@
       <file leaf-file-name="userService.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/userService.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="69" column="34" lean-forward="true" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+            <state relative-caret-position="375">
+              <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding>
                 <element signature="e#18#154#0" expanded="true" />
                 <element signature="n#!!block;n#CreateUser#0" expanded="false" />
@@ -100,8 +98,8 @@
         <option value="$PROJECT_DIR$/controllers/utilController.go" />
         <option value="$PROJECT_DIR$/services/emailService.go" />
         <option value="$PROJECT_DIR$/services/userService.go" />
-        <option value="$PROJECT_DIR$/routers/auth.go" />
         <option value="$PROJECT_DIR$/controllers/authController.go" />
+        <option value="$PROJECT_DIR$/routers/auth.go" />
       </list>
     </option>
   </component>
@@ -687,12 +685,12 @@
       <workItem from="1497024356582" duration="2741000" />
       <workItem from="1497258031912" duration="6422000" />
       <workItem from="1497318483410" duration="240000" />
-      <workItem from="1497342444476" duration="7174000" />
+      <workItem from="1497342444476" duration="7922000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39142000" />
+    <option name="totallyTimeSpent" value="39890000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -1075,33 +1073,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/userService.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="69" column="34" lean-forward="true" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
-          <folding>
-            <element signature="e#18#154#0" expanded="true" />
-            <element signature="n#!!block;n#CreateUser#0" expanded="false" />
-            <element signature="n#!!block;n#GetUserById#0" expanded="false" />
-            <element signature="n#!!block;n#UpdateUser#0" expanded="false" />
-            <element signature="n#!!block;n#ChangePassword#0" expanded="false" />
-            <element signature="n#!!block;n#ChangePasswordForId#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../gorilla/mux/mux.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="261" column="17" lean-forward="false" selection-start-line="261" selection-start-column="17" selection-end-line="261" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routers/auth.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1114,17 +1089,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services/userService.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding>
+            <element signature="e#18#154#0" expanded="true" />
+            <element signature="n#!!block;n#CreateUser#0" expanded="false" />
+            <element signature="n#!!block;n#GetUserById#0" expanded="false" />
+            <element signature="n#!!block;n#UpdateUser#0" expanded="false" />
+            <element signature="n#!!block;n#ChangePassword#0" expanded="false" />
+            <element signature="n#!!block;n#ChangePasswordForId#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/authController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="196" column="22" lean-forward="true" selection-start-line="196" selection-start-column="22" selection-end-line="196" selection-end-column="22" />
+        <state relative-caret-position="155">
+          <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
           <folding>
             <element signature="n#!!block;n#AuthRegister#0" expanded="false" />
             <element signature="n#!!block;n#AuthUpdate#0" expanded="false" />
             <element signature="n#!!block;n#AuthCreateAccounts#0" expanded="false" />
             <element signature="n#!!block;n#AuthLogin#0" expanded="false" />
             <element signature="n#!!block;n#ChangePassword#0" expanded="false" />
+            <element signature="n#!!block;n#ChangePasswordForId#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routers/auth.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="39" column="54" lean-forward="true" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
