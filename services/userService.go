@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	"time"
 	"gopkg.in/hlandau/passlib.v1"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type UserService struct {
@@ -32,10 +31,16 @@ func (this *UserService) CreateUser(user models.User) (int64, error) {
 	}
 	//generate password hash
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	/*hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		fmt.Printf("NUM: ERR: %v\n", err)
 	}
+	*/
+	hashedPassword, err := passlib.Hash(user.Password)
+	if err != nil {
+		fmt.Printf("NUM: ERR: %v\n", err)
+	}
+
 	user.CreatedDate = time.Now()
 	user.UpdatedDate = time.Now()
 	user.PasswordHash = string(hashedPassword)
@@ -43,18 +48,43 @@ func (this *UserService) CreateUser(user models.User) (int64, error) {
 	return id, err
 }
 
+func (this *UserService) GetUserById(id int64) (models.User, error) {
+	var user models.User
+	err := this.Orm.QueryTable(new(models.User)).Filter("id", id).One(&user)
+	return user, err
+}
+
+func (this *UserService) UpdateUser(user models.User) error {
+	_, err := this.Orm.Update(&user)
+	return err
+}
+
 func (this *UserService) Login(username, password string) (models.User, error) {
-	user := models.User{Username: username}
+	var user  models.User
 	err := this.Orm.QueryTable(new(models.User)).Filter("username", username).One(&user)
 
 	if err != nil {
-		return user, errors.New("Invalid credentials")
+		err := this.Orm.QueryTable(new(models.User)).Filter("email", username).One(&user)
+
+		if err != nil {
+			return user, errors.New("Invalid credentials")
+		}
+
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
+	fmt.Printf("%v\n", username)
 
+	newHash, err := passlib.Verify(password, user.PasswordHash)
+
+	//err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
 	if err != nil {
+		panic(err)
 		return models.User{}, errors.New("Invalid credentials")
+	}
+
+	if newHash != ""{
+		user.PasswordHash = newHash
+		this.Orm.Update(&user)
 	}
 
 	return user, nil
@@ -73,9 +103,24 @@ func (this *UserService) ChangePassword(userId int64, oldPassword, newPassword s
 		return errors.New("Invalid credentials")
 	}
 
-	fmt.Printf("NUM: ERR: %v\n", user)
+	hashedPassword, err := passlib.Hash(newPassword) // bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	if err != nil {
+		fmt.Printf("NUM: ERR: %v\n", err)
+	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	user.PasswordHash = string(hashedPassword)
+	this.Orm.Update(&user)
+	return nil
+}
+
+func (this *UserService) ChangePasswordForId(userId int64, newPassword string) error {
+	user := models.User{Id:userId}
+	err := this.Orm.QueryTable(new(models.User)).Filter("id", userId).One(&user)
+	if err != nil{
+		return errors.New("User not found")
+	}
+
+	hashedPassword, err := passlib.Hash(newPassword) // bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
 	if err != nil {
 		fmt.Printf("NUM: ERR: %v\n", err)
 	}

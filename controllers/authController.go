@@ -9,6 +9,8 @@ import (
 	"github.com/ademuanthony/Bas/services"
 	"errors"
 	"github.com/ademuanthony/Bas/models"
+	"github.com/gorilla/mux"
+	"strconv"
 )
 
 func AuthRegister(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +33,60 @@ func AuthRegister(w http.ResponseWriter, r *http.Request) {
 	user.Id = id
 	common.SendResult(w, resources.ResponseResource{Data: user, Success:true}, http.StatusCreated)
 
+}
+
+// AuthUpdate changes the details of a user specified by the id
+// Handler /auth/{id}/update [POST]
+func AuthUpdate(w http.ResponseWriter, r *http.Request) {
+	currentUser := r.Context().Value("UserInfo")
+	common.Log("CurrentUser", currentUser)
+	var userResource resources.UserResource
+	err := json.NewDecoder(r.Body).Decode(&userResource)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid userModel data", http.StatusBadRequest)
+		return
+	}
+
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid User Id", http.StatusBadRequest)
+	}
+
+	userModel := userResource.Data
+	userService := services.UserService{Orm: orm.NewOrm()}
+
+	user, err := userService.GetUserById(id)
+
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid user Id", http.StatusBadRequest)
+		return
+	}
+
+	if userModel.Email != ""{
+		user.Email = userModel.Email
+	}
+
+	if userModel.Username != ""{
+		user.Username = userModel.Username
+	}
+
+	if userModel.FirstName != ""{
+		user.FirstName = userModel.FirstName
+	}
+
+	if userModel.LastName != ""{
+		user.LastName = userModel.LastName
+	}
+
+	err = userService.UpdateUser(user)
+	if err != nil {
+		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+	userModel.PasswordHash = ""
+	userModel.Id = id
+	common.SendResult(w, resources.ResponseResource{Data: userModel, Success: true}, http.StatusCreated)
 }
 
 
@@ -123,4 +179,33 @@ func ChangePassword(w http.ResponseWriter, r * http.Request) {
 		return
 	}
 	common.SendResult(w, resources.ResponseResource{Data:true, Success:true}, http.StatusOK)
+}
+
+// ChangePasswordForId changes the password of a user specified by the id
+// Handler /auth/{id}/changepassword [POST]
+func ChangePasswordForId(w http.ResponseWriter, r *http.Request)  {
+	//get id from in coming request
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid User Id", http.StatusBadRequest)
+	}
+
+	var model resources.ChangePasswordModel
+	// Decode the incoming json
+	err = json.NewDecoder(r.Body).Decode(&model)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid request data", http.StatusBadRequest)
+		return
+	}
+
+	userService := services.UserService{Orm:orm.NewOrm()}
+
+	err = userService.ChangePasswordForId(id, model.NewPassword)
+	if err != nil{
+		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+	common.SendResult(w, resources.ResponseResource{Data:true, Success:true}, http.StatusOK)
+
 }
