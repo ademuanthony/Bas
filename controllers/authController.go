@@ -23,7 +23,8 @@ func AuthRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	user := userResource.Data
-	userService := services.UserService{Orm: orm.NewOrm()}
+	o := orm.NewOrm()
+	userService := services.UserService{Orm: o}
 	id, err := userService.CreateUser(user)
 	if err != nil {
 		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
@@ -31,8 +32,12 @@ func AuthRegister(w http.ResponseWriter, r *http.Request) {
 	}
 	user.PasswordHash = ""
 	user.Id = id
-	common.SendResult(w, resources.ResponseResource{Data: user, Success:true}, http.StatusCreated)
 
+	aclService := services.AclService{Orm:o}
+
+	aclService.AddUserToRole(id, 4)
+
+	common.SendResult(w, resources.ResponseResource{Data: user, Success:true}, http.StatusCreated)
 }
 
 // AuthUpdate changes the details of a user specified by the id
