@@ -10,6 +10,7 @@ import (
 func SetAuthRoute(router *mux.Router) *mux.Router {
 	router.HandleFunc("/auth/login", controllers.AuthLogin).Methods("POST")
 	router.HandleFunc("/utils/sendmail", controllers.SendEmail).Methods("POST")
+	router.HandleFunc("/utils/sendmails", controllers.SendMultipleEmail).Methods("POST")
 
 	applicationRoute := mux.NewRouter()
 
