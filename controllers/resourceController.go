@@ -108,6 +108,57 @@ func CreateResources(w http.ResponseWriter, r *http.Request) {
 	common.SendResult(w, resources.ResponseResource{Data:outputs, Message:"Resources created", Success:true}, http.StatusCreated)
 }
 
+
+// Handler /resources/{id}/update [POST]
+// Creates a new role in the system
+func UpdateResource(w http.ResponseWriter, r *http.Request) {
+	// get id from incoming url
+	vars := mux.Vars(r)
+	idParam := vars["id"]
+
+	id, err := strconv.ParseInt(idParam, 10, 64)
+	if err != nil{
+		common.DisplayAppError(w, err, "Please send a valid Id", http.StatusBadRequest)
+		return
+	}
+
+	currentUser := r.Context().Value("UserInfo").(map[string]interface{})
+
+	var resourceVm resources.CreateResourceResource
+
+	err = json.NewDecoder(r.Body).Decode(&resourceVm);
+
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid request", http.StatusBadRequest)
+		return
+	}
+
+	o := orm.NewOrm()
+	resourceService := services.AclService{Orm:o}
+
+	resource, err := resourceService.GetResourceById(id)
+	if err != nil{
+		common.DisplayAppError(w, err, "Invalid resource ID", http.StatusBadRequest)
+		return
+	}
+
+	application := new(models.Application)
+	application.Id = resourceVm.ApplicationId
+
+	resource.Key = resourceVm.Key
+	resource.UpdatedDate = time.Now()
+	resource.UpdatedBy = int64(currentUser["UserId"].(float64))
+
+	_, err = o.Update(&resource)
+
+	if err != nil{
+		common.SendResult(w, resources.ResponseResource{Message:err.Error(), Success:false}, http.StatusNotAcceptable)
+		return
+	}
+	common.SendResult(w, resources.ResponseResource{Data:resource, Message:"Resource updated", Success:true}, http.StatusCreated)
+}
+
+
 // Handler /resources [GET]
 // Returns a list of Resources
 func GetResources(w http.ResponseWriter, r *http.Request) {

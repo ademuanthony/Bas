@@ -15,6 +15,7 @@ func SetAclRoutes(router *mux.Router) *mux.Router {
 	applicationRoute.HandleFunc("/resources", controllers.GetResources).Methods("GET")
 	applicationRoute.HandleFunc("/resources/{id}", controllers.GetResourceById).Methods("GET")
 	applicationRoute.HandleFunc("/resources/{id}/delete", controllers.DeleteResource).Methods("POST")
+	applicationRoute.HandleFunc("/resources/{id}/update", controllers.UpdateResource).Methods("POST")
 
 	router.PathPrefix("/resources").Handler(negroni.New(
 		negroni.HandlerFunc(common.Authorize),
