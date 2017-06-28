@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"reflect"
 	"errors"
-	"github.com/ademuanthony/Bas/resources"
+	"bitbucket.org/superfluxteam/pmsserver/resources"
 )
 
 type configuration struct {

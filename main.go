@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/ademuanthony/Bas/common"
-	"github.com/ademuanthony/Bas/routers"
+	"bitbucket.org/superfluxteam/pmsserver/common"
+	"bitbucket.org/superfluxteam/pmsserver/routers"
 	"github.com/codegangsta/negroni"
 	"log"
 	"net/http"
