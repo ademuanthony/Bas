@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Bas.iml" filepath="$PROJECT_DIR$/Bas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pmsserver.iml" filepath="$PROJECT_DIR$/pmsserver.iml" />
     </modules>
   </component>
 </project>
