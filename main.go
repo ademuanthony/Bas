@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/ademuanthony/Bas/common"
-	"github.com/ademuanthony/Bas/routers"
+	"github.com/ademuanthony/bas/common"
+	"github.com/ademuanthony/bas/routers"
 	"github.com/codegangsta/negroni"
 	"log"
 	"net/http"

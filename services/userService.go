@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 	"fmt"
-	"github.com/ademuanthony/Bas/models"
+	"github.com/ademuanthony/bas/models"
 	"github.com/astaxie/beego/orm"
 	"time"
 	"gopkg.in/hlandau/passlib.v1"

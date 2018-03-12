@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"reflect"
 	"errors"
-	"github.com/ademuanthony/Bas/resources"
+	"github.com/ademuanthony/bas/resources"
 )
 
 type configuration struct {

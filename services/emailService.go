@@ -3,7 +3,7 @@ package services
 import (
 	"gopkg.in/gomail.v2"
 	"crypto/tls"
-	"github.com/ademuanthony/Bas/resources"
+	"github.com/ademuanthony/bas/resources"
 	"fmt"
 )
 

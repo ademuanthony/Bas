@@ -2,13 +2,13 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/ademuanthony/Bas/common"
-	"github.com/ademuanthony/Bas/resources"
+	"github.com/ademuanthony/bas/common"
+	"github.com/ademuanthony/bas/resources"
 	"github.com/astaxie/beego/orm"
 	"net/http"
-	"github.com/ademuanthony/Bas/services"
+	"github.com/ademuanthony/bas/services"
 	"errors"
-	"github.com/ademuanthony/Bas/models"
+	"github.com/ademuanthony/bas/models"
 	"github.com/gorilla/mux"
 	"strconv"
 )

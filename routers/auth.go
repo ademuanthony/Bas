@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"github.com/ademuanthony/Bas/common"
-	"github.com/ademuanthony/Bas/controllers"
+	"github.com/ademuanthony/bas/common"
+	"github.com/ademuanthony/bas/controllers"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 )

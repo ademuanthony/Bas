@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/astaxie/beego/orm"
-	"github.com/ademuanthony/Bas/models"
+	"github.com/ademuanthony/bas/models"
 	"errors"
 )
 

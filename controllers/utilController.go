@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"net/http"
-	"github.com/ademuanthony/Bas/resources"
+	"github.com/ademuanthony/bas/resources"
 	"encoding/json"
-	"github.com/ademuanthony/Bas/common"
-	"github.com/ademuanthony/Bas/services"
+	"github.com/ademuanthony/bas/common"
+	"github.com/ademuanthony/bas/services"
 )
 
 // Handler /utils/sendemail [POST]
